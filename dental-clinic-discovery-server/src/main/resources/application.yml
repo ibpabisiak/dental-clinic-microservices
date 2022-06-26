@@ -1,2 +1,15 @@
 server:
-  port: 8087
+  port: 8761
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+
+spring:
+  application:
+    name: eureka-discovery-server
+
+
+
+
