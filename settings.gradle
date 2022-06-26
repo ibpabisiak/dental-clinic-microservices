@@ -5,4 +5,5 @@ include 'dental-clinic-dentists-service'
 include 'dental-clinic-visits-service'
 include 'dental-clinic-patient-service'
 include 'dental-clinic-patients-service'
+include 'dental-clinic-admin-server'
 
