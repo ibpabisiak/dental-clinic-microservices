@@ -1,2 +1,13 @@
 server:
-  port: 8083 #TODO replace it with random port
+  port: 0
+
+spring:
+  application:
+    name: patients-service
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+    instance-id: ${spring.application.name}:${random.uuid}
