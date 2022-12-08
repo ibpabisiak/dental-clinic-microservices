@@ -1,4 +1,4 @@
-name: Dental Clinic Microservices CI
+name: Build & Unit Tests CI
 run-name: ${{ github.actor }} launched a pipeline for the '${{ github.ref_name }}' branch
 on: [ push ]
 
