@@ -1,19 +1,28 @@
 package com.microservices.dental.clinic.dentists.service.data;
 
 
-import java.time.Instant;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "dentists")
 public class DentistEntity {
 
-    //TODO implement entity with databse
-    private String id;
-    private String name;
-    private String surname;
-    private Instant birthdate;
-    private DentistSpeciality speciality;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
+    @Column(name = "first_name", length = 30)
+    private String firstName;
+
+    @Column(name = "last_name", length = 30)
+    private String lastName;
 }

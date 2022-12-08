@@ -1,32 +1,25 @@
 package com.microservices.dental.clinic.dentists.service;
 
 import com.microservices.dental.clinic.dentists.service.data.DentistDTO;
-import com.microservices.dental.clinic.dentists.service.data.DentistSpeciality;
-import java.time.Instant;
-import java.util.ArrayList;
+import com.microservices.dental.clinic.dentists.service.data.DentistRepository;
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class DentistsService {
 
+    private final DentistRepository dentistRepository;
+
     public List<DentistDTO> getAllDentists() {
-        //TODO implement loading from database
-        return prepareDummyData(5);
-    }
-
-
-    private List<DentistDTO> prepareDummyData(int count) {
-        var dentists = new ArrayList<DentistDTO>();
-        for (int i = 0; i < count; i++) {
-            dentists.add(
-                new DentistDTO(UUID.randomUUID().toString(), "John" + i, "Smith", Instant.now(),
-                    DentistSpeciality.ENDODONTIST));
-        }
-        return dentists;
+        var dentists = dentistRepository.findAll();
+        return dentists.stream()
+            .map(e -> new DentistDTO(e.getId(), e.getFirstName(), e.getLastName()))
+            .collect(Collectors.toUnmodifiableList());
     }
 
 }

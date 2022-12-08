@@ -1,5 +1,6 @@
 package com.microservices.dental.clinic.dentists.service.data;
 
-public interface DentistRepository {
-    //TODO implement repository with database
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DentistRepository extends JpaRepository<DentistEntity, Integer> {
 }
