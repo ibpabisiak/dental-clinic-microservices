@@ -1,6 +1,7 @@
 HELP.md
 .gradle
 build/
+h2-database-data/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
