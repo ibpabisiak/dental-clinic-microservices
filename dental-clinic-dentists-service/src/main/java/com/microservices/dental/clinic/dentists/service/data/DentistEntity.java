@@ -7,13 +7,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "dentists")
+@NoArgsConstructor
+@AllArgsConstructor
 public class DentistEntity {
 
     @Id
@@ -25,4 +29,7 @@ public class DentistEntity {
 
     @Column(name = "last_name", length = 30)
     private String lastName;
+
+    @Column(name = "speciality", length = 30)
+    private String speciality;
 }

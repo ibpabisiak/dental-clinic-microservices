@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+  sql:
+    init:
+      schema-locations: classpath*:db/hsqldb/schema.sql
+      data-locations: classpath*:db/hsqldb/data.sql
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+eureka:
+  client:
+    enabled: false

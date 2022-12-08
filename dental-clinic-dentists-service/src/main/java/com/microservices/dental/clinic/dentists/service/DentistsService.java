@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -14,11 +15,12 @@ import org.springframework.stereotype.Service;
 public class DentistsService {
 
     private final DentistRepository dentistRepository;
+    private final ModelMapper modelMapper;
 
     public List<DentistDTO> getAllDentists() {
         var dentists = dentistRepository.findAll();
         return dentists.stream()
-            .map(e -> new DentistDTO(e.getId(), e.getFirstName(), e.getLastName()))
+            .map(e -> modelMapper.map(e, DentistDTO.class))
             .collect(Collectors.toUnmodifiableList());
     }
 
