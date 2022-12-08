@@ -1,5 +1,5 @@
 name: Dental Clinic Microservices CI
-run-name: ${{ github.actor }} launched a pipeline for ${{ github.ref_name }} branch
+run-name: ${{ github.actor }} launched a pipeline for the ${{ github.ref_name }} branch
 on: [ push ]
 
 permissions:
