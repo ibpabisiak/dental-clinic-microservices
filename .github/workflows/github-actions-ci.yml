@@ -1,5 +1,5 @@
 name: Dental Clinic Microservices CI
-run-name: ${{ github.actor }} launched CI for ${{ github.ref.name }}
+run-name: ${{ github.actor }} launched CI for ${{ github.ref_name }}
 on: [ push ]
 
 permissions:
