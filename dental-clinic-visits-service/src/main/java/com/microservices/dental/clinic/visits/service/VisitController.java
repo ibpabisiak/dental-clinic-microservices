@@ -10,5 +10,4 @@ public class VisitController {
     private final VisitService visitService;
 
     //TODO
-
 }
