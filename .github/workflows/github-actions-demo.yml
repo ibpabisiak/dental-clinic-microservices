@@ -41,5 +41,5 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
       - name: Run build with Gradle Wrapper
-        run: ./gradlew build
+        run: ./gradlew build --x test
       - run: echo "🍏 This job's status is ${{ job.status }}."
