@@ -4,10 +4,30 @@ server:
 spring:
   application:
     name: visits-service
+  datasource:
+    url: jdbc:h2:file:./h2-database-data/visits-service-database
+    driverClassName: org.h2.Driver
+    username: sa
+    password: admin
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  sql:
+    init:
+      schema-locations: classpath*:db/hsqldb/schema.sql
+      data-locations: classpath*:db/hsqldb/data.sql
+      mode: always
+
 eureka:
   client:
+    enabled: true
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+      defaultZone: http://localhost:8761/eureka
   instance:
     preferIpAddress: true
     instance-id: ${spring.application.name}:${random.uuid}
