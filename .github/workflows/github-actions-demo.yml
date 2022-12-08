@@ -16,6 +16,5 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - name: Run Unit Tests
-        run: |
-          "${{ github.workspace }} gradlew test"
+        run: pwd
       - run: echo "🍏 This job's status is ${{ job.status }}."
