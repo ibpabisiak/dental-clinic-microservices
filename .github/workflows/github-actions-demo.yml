@@ -34,8 +34,12 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
       - name: Run build with Gradle Wrapper
         run: ./gradlew build
       - run: echo "🍏 This job's status is ${{ job.status }}."
