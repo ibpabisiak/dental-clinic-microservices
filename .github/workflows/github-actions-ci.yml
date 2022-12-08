@@ -3,6 +3,7 @@ run-name: ${{ github.actor }} run Dental Clinic Microservices CI 🚀
 on: [ push ]
 jobs:
   build-project:
+    name: Project Build
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -25,6 +26,8 @@ jobs:
         run: ./gradlew build --x test
       - run: echo "🍏 This job's status is ${{ job.status }}."
   unit-tests:
+    name: Unit Tests
+    needs: build-project
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -43,6 +46,6 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
-      - name: Run build with Gradle Wrapper
+      - name: Run unit tests with Gradle Wrapper
         run: ./gradlew test
       - run: echo "🍏 This job's status is ${{ job.status }}."
