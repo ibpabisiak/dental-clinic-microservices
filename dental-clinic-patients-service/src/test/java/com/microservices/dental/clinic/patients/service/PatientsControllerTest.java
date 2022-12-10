@@ -1,14 +1,9 @@
 package com.microservices.dental.clinic.patients.service;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microservices.dental.clinic.patients.service.data.PatientDTO;
-import com.microservices.dental.clinic.patients.service.data.PatientEntity;
 import com.microservices.dental.clinic.patients.service.data.PatientRepository;
+import com.microservices.dental.clinic.patients.service.data.value.FirstName;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +17,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import static com.microservices.dental.clinic.patients.service.TestDummyDataGenerator.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -38,8 +38,8 @@ public class PatientsControllerTest {
     @BeforeEach
     void setup() {
         mockMvc = MockMvcBuilders
-            .webAppContextSetup(context)
-            .build();
+                .webAppContextSetup(context)
+                .build();
         patientRepository.deleteAll();
     }
 
@@ -52,22 +52,22 @@ public class PatientsControllerTest {
     void shouldGetAListOfPatientsFromDatabase() throws Exception {
         var saved = patientRepository.save(prepareDummyPatientEntity());
         mockMvc.perform(get("/api/patients").accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$[0].id").value(saved.getId()));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(saved.getId()));
     }
 
     @Test
     void shouldGetPatientByIdWithSuccess() throws Exception {
         var saved = patientRepository.save(prepareDummyPatientEntity());
         mockMvc.perform(get("/api/patients/" + saved.getId()).accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("id").value(saved.getId()));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(saved.getId()));
     }
 
     @Test
     void shouldReturnNotFoundWithWrongId() throws Exception {
         mockMvc.perform(get("/api/patients/5").accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -76,8 +76,8 @@ public class PatientsControllerTest {
         var json = om.writeValueAsString(requestDto);
 
         var response = mockMvc.perform(post("/api/patients").content(json).contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isCreated())
-            .andReturn();
+                .andExpect(status().isCreated())
+                .andReturn();
         var responseDto = om.readValue(response.getResponse().getContentAsString(), PatientDTO.class);
 
         Assertions.assertEquals(requestDto.getFirstName(), responseDto.getFirstName());
@@ -87,11 +87,11 @@ public class PatientsControllerTest {
     void shouldUpdateExistingPatient() throws Exception {
         var saved = patientRepository.save(prepareDummyPatientEntity());
         var requestDto = prepareDummyPatientDto();
-        requestDto.setFirstName("updatedFirstName");
+        requestDto.setFirstName(FirstName.of("updatedFirstName"));
         var json = om.writeValueAsString(requestDto);
 
         mockMvc.perform(put("/api/patients/" + saved.getId()).content(json).contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isNoContent());
+                .andExpect(status().isNoContent());
         var updated = patientRepository.findById(saved.getId()).get();
 
         Assertions.assertEquals(requestDto.getFirstName(), updated.getFirstName());
@@ -101,14 +101,8 @@ public class PatientsControllerTest {
     void shouldReturnNotFoundWhenPatientNotExists() throws Exception {
         var json = om.writeValueAsString(prepareDummyPatientDto());
         mockMvc.perform(put("/api/patients/" + 1).content(json).contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound());
     }
 
-    private static PatientEntity prepareDummyPatientEntity() {
-        return new PatientEntity(5, "n", "l", "a", "c", "111222333");
-    }
 
-    private static PatientDTO prepareDummyPatientDto() {
-        return new PatientDTO(5, "n", "l", "a", "c", "111222333");
-    }
 }

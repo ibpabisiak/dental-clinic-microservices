@@ -1,28 +1,38 @@
 package com.microservices.dental.clinic.patients.service.data;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.microservices.dental.clinic.patients.service.data.value.*;
+import lombok.*;
+import org.hibernate.validator.constraints.pl.PESEL;
+
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder(builderClassName = "Patient")
 public class PatientDTO {
 
     private Integer id;
-    @NotBlank
-    private String firstName;
-    @NotBlank
-    private String lastName;
-    @NotBlank
-    private String address;
-    @NotBlank
-    private String city;
-    @NotBlank
-    @Digits(fraction = 0, integer = 9)
-    private String telephone;
+    @NotNull
+    @JsonUnwrapped
+    private FirstName firstName;
+    @NotNull
+    @JsonUnwrapped
+    private LastName lastName;
+    @NotNull
+    @JsonUnwrapped
+    private Address address;
+    @NotNull
+    @JsonUnwrapped
+    private City city;
+    @NotNull
+    @JsonUnwrapped
+    private Telephone telephone;
+
+    @NotNull
+    @JsonUnwrapped
+    private Pesel pesel;
 }

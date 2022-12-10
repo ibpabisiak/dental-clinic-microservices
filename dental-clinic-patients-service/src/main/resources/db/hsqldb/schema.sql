@@ -7,5 +7,6 @@ CREATE TABLE patients
     last_name  VARCHAR(30),
     address    VARCHAR(30),
     city       VARCHAR(30),
-    telephone  VARCHAR(9)
+    telephone  VARCHAR(9),
+    pesel      VARCHAR(11)
 );

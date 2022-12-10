@@ -21,6 +21,9 @@ public class PatientsService {
 
     public List<PatientDTO> getAllPatients() {
         log.info("Loading all patients.");
+
+        var entity = patientRepository.findAll();
+        var dto = modelMapper.map(entity, PatientDTO.class);
         return patientRepository.findAll().stream()
             .map(e -> modelMapper.map(e, PatientDTO.class))
             .collect(Collectors.toUnmodifiableList());
