@@ -11,6 +11,14 @@ spring:
           uri: lb://dentists-service
           predicates:
             - Path=/api/dentists/**
+        - id: patients-service
+          uri: lb://patients-service
+          predicates:
+            - Path=/api/patients/**
+        - id: visits-service
+          uri: lb://visits-service
+          predicates:
+            - Path=/api/visits/**
       discovery:
         locator:
           enabled: true
