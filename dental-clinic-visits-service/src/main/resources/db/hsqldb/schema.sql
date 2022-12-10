@@ -4,7 +4,7 @@ CREATE TABLE visits (
   id              INTEGER IDENTITY PRIMARY KEY,
   dentist_id      INTEGER NOT NULL,
   patient_id      INTEGER NOT NULL,
-  visit_date      DATE,
+  visit_date      TIMESTAMP WITH TIME ZONE,
   description     VARCHAR(8192)
 );
 

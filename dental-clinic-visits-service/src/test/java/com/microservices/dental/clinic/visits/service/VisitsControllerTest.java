@@ -1,6 +1,7 @@
 package com.microservices.dental.clinic.visits.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.microservices.dental.clinic.visits.service.data.VisitDTO;
 import com.microservices.dental.clinic.visits.service.data.VisitRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -17,6 +18,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.Instant;
+
+import static com.microservices.dental.clinic.visits.service.ObjectAssertions.assertVisitEntityAndDto;
 import static com.microservices.dental.clinic.visits.service.TestDummyDataGenerator.prepareVisitDto;
 import static com.microservices.dental.clinic.visits.service.TestDummyDataGenerator.prepareVisitEntity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -39,6 +43,8 @@ public class VisitsControllerTest {
 
     @BeforeEach
     void setup() {
+
+        om.registerModule(new JavaTimeModule());
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .build();
@@ -62,10 +68,14 @@ public class VisitsControllerTest {
 
     @Test
     void shouldGetVisitByIdWithSuccess() throws Exception {
+        Instant.now();
         var saved = visitRepository.save(prepareVisitEntity());
-        mockMvc.perform(get("/api/visits/" + saved.getId()).accept(MediaType.APPLICATION_JSON))
+        var mvcResult = mockMvc.perform(get("/api/visits/" + saved.getId()).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("id").value(saved.getId()));
+                .andExpect(jsonPath("id").value(saved.getId()))
+                .andReturn();
+        var responseDto = om.readValue(mvcResult.getResponse().getContentAsString(), VisitDTO.class);
+        assertVisitEntityAndDto(saved, responseDto);
     }
 
     @Test

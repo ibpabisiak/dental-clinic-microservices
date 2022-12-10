@@ -1,9 +1,8 @@
 package com.microservices.dental.clinic.visits.service.data;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
-import java.util.Date;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -14,8 +13,7 @@ public class VisitDTO {
 
     private Integer id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date date = new Date();
+    private Instant date;
 
     private String description;
 
