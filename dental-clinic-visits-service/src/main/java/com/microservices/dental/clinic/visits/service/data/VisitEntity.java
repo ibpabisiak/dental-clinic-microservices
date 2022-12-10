@@ -1,22 +1,18 @@
 package com.microservices.dental.clinic.visits.service.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+
+import javax.persistence.*;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "visits")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class VisitEntity {
 
     @Id
@@ -26,7 +22,7 @@ public class VisitEntity {
     @Column(name = "visit_date")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date date = new Date();
+    private Date date;
 
     @Column(name = "description", length = 8192)
     private String description;

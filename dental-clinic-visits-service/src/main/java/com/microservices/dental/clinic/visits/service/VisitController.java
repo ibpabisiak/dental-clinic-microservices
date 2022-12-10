@@ -2,6 +2,7 @@ package com.microservices.dental.clinic.visits.service;
 
 import com.microservices.dental.clinic.visits.service.data.VisitDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class VisitController {
 
     @PostMapping
     public ResponseEntity<VisitDTO> createVisit(@RequestBody VisitDTO dto) {
-        return ResponseEntity.ok().body(visitService.createVisit(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(visitService.createVisit(dto));
     }
 
     @DeleteMapping("/{visitId}")
