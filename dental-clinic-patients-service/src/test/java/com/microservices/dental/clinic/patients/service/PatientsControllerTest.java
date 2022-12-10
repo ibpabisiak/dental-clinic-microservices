@@ -18,7 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static com.microservices.dental.clinic.patients.service.TestDummyDataGenerator.*;
+import static com.microservices.dental.clinic.patients.service.TestDummyDataGenerator.prepareDummyPatientDto;
+import static com.microservices.dental.clinic.patients.service.TestDummyDataGenerator.prepareDummyPatientEntity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,11 +29,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 public class PatientsControllerTest {
 
-    private final ObjectMapper om = new ObjectMapper();
-    @Autowired
-    private WebApplicationContext context;
     @Autowired
     private PatientRepository patientRepository;
+    @Autowired
+    private WebApplicationContext context;
+    private final ObjectMapper om = new ObjectMapper();
     private MockMvc mockMvc;
 
     @BeforeEach

@@ -3,12 +3,14 @@ package com.microservices.dental.clinic.patients.service;
 import com.microservices.dental.clinic.patients.service.data.PatientDTO;
 import com.microservices.dental.clinic.patients.service.data.PatientEntity;
 import com.microservices.dental.clinic.patients.service.data.value.*;
-import lombok.experimental.UtilityClass;
 
-@UtilityClass
 public class TestDummyDataGenerator {
 
-    public PatientDTO prepareDummyPatientDto() {
+    private TestDummyDataGenerator() {
+        throw new UnsupportedOperationException();
+    }
+
+    public static PatientDTO prepareDummyPatientDto() {
         return PatientDTO.builder()
                 .id(5)
                 .firstName(FirstName.of("n"))
@@ -21,7 +23,7 @@ public class TestDummyDataGenerator {
 
     }
 
-    public PatientEntity prepareDummyPatientEntity() {
+    public static PatientEntity prepareDummyPatientEntity() {
         return PatientEntity.builder()
                 .id(5)
                 .firstName(FirstName.of("n"))

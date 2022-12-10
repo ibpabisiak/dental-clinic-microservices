@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+  sql:
+    init:
+      schema-locations: classpath*:db/hsqldb/schema.sql
+      data-locations: classpath*:db/hsqldb/data.sql
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:h2:mem:test-db
+    username: sa
+    password: admin
+    driver-class-name: org.h2.Driver
+
+eureka:
+  client:
+    enabled: false
