@@ -1,12 +1,12 @@
-package com.microservices.dental.clinic.patients.service;
+package com.microservices.dental.clinic.visits.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DentalClinicPatientsServiceApplication {
+public class VisitsServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DentalClinicPatientsServiceApplication.class, args);
+        SpringApplication.run(VisitsServiceApplication.class, args);
     }
 }

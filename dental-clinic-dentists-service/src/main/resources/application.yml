@@ -4,9 +4,28 @@ server:
 spring:
   application:
     name: dentists-service
+  datasource:
+    url: jdbc:h2:file:./h2-database-data/dentists-service-database
+    driverClassName: org.h2.Driver
+    username: sa
+    password: admin
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  sql:
+    init:
+      schema-locations: classpath*:db/hsqldb/schema.sql
+      data-locations: classpath*:db/hsqldb/data.sql
+      mode: always
 
 eureka:
   client:
+    enabled: true
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
   instance:
