@@ -31,7 +31,10 @@ public class VisitEntity {
     @Column(name = "description", length = 8192)
     private String description;
 
-    @Column(name = "pet_id")
-    private int petId;
+    @Column(name = "patient_id")
+    private int patientId;
+
+    @Column(name = "dentist_id")
+    private int dentistId;
 
 }
